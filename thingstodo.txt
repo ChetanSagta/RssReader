@@ -1,0 +1,4 @@
+vim keybindings
+ui like newsboat
+notification
+update only when the content has changed

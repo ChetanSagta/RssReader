@@ -1,0 +1,14 @@
+Entity/MenuEntity.class
+util/Downloader.class
+util/RssXmlParser.class
+userInterface/UserInputs.class
+main/Main.class
+util/Color.class
+util/Filter.class
+Entity/LinkInformation.class
+userInterface/SecondScreen.class
+userInterface/KeyboardEvent$1.class
+userInterface/MainMenu.class
+util/DBClient.class
+util/YmlParser.class
+userInterface/KeyboardEvent.class
