@@ -1,6 +1,6 @@
 package Entity;
 
-public class LinkInformation {
+public class SecondScreenEntity extends ScreenEntity {
 
     boolean readStatus;
     int contentSize;

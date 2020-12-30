@@ -1,8 +1,8 @@
 package main;
 
 import org.xml.sax.SAXException;
-import userInterface.MainMenu;
-import userInterface.UserInputs;
+import userInput.UserInputs;
+import userInterface.FirstScreen;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -12,10 +12,15 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException,
             SQLException, ClassNotFoundException{
-        MainMenu.createMenu();
+        FirstScreen.createMenu();
+        UserInputs inputs = new UserInputs();
         while(true) {
-            new UserInputs().getInput();
+            if(ScreenStatus.status.equals("First")){
+                inputs.getInput(1);
+            }
+            else if(ScreenStatus.status.equals("Second")) {
+                inputs.getInput(2);
+            }
         }
-
     }
 }

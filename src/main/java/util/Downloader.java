@@ -1,6 +1,6 @@
 package util;
 
-import Entity.MenuEntity;
+import Entity.FirstScreenEntity;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,12 +21,12 @@ public class Downloader {
 
         String responseString = "";
         URL obj = new URL(urlString);
-        System.out.println(obj);
+//        System.out.println(obj);
         HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
-        System.out.println("Connection Opening");
+//        System.out.println("Connection Opening");
         conn.setRequestMethod("GET");
         int response = conn.getResponseCode();
-        System.out.println(response);
+//        System.out.println(response);
 
         if(response == 200){
             InputStream ip = conn.getInputStream();
@@ -40,7 +40,7 @@ public class Downloader {
         return responseString;
     }
 
-    public void Reload(MenuEntity entity) throws IOException, ParserConfigurationException, SAXException, SQLException, ClassNotFoundException {
+    public void Reload(FirstScreenEntity entity) throws IOException, ParserConfigurationException, SAXException, SQLException, ClassNotFoundException {
 
         String rssPageContent = getData(entity.getLink());
         RssXmlParser rssXmlParser = new RssXmlParser();

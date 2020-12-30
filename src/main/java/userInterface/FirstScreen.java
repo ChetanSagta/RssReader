@@ -1,6 +1,6 @@
 package userInterface;
 
-import Entity.MenuEntity;
+import Entity.FirstScreenEntity;
 import org.xml.sax.SAXException;
 import util.Color;
 import util.DBClient;
@@ -13,9 +13,11 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 
-public final class MainMenu {
+import static main.ScreenStatus.clearScreen;
+
+public final class FirstScreen {
     private static int count = 1;
-    private static List<MenuEntity> menuItems;
+    private static List<FirstScreenEntity> menuItems;
     private static int menuValue = 1;
     private  static Map<String,String> fileContent;
 
@@ -27,7 +29,7 @@ public final class MainMenu {
         Iterator<String> it = fileContent.keySet().iterator();
 
         while (it.hasNext()) {
-            MenuEntity tempEntity = new MenuEntity();
+            FirstScreenEntity tempEntity = new FirstScreenEntity();
             tempEntity.setsNo(count);
             tempEntity.setDate("");
             tempEntity.setTitle(it.next());
@@ -46,7 +48,7 @@ public final class MainMenu {
         if(menuValue > fileContent.size())   --menuValue;
         else if(menuValue < 1) ++menuValue;
         System.out.println(Color.BG_BLACK+Color.BLUE+"------------Main Menu--------------");
-        for (MenuEntity tmpEntity : menuItems) {
+        for (FirstScreenEntity tmpEntity : menuItems) {
             if (tmpEntity.getsNo() == menuValue) {
                 tmpEntity.setForegroundColor(Color.RED);
                 tmpEntity.setSelected(true);
@@ -55,23 +57,22 @@ public final class MainMenu {
                 tmpEntity.setForegroundColor(Color.CYAN);
                 tmpEntity.setSelected(false);
             }
-            System.out.println(tmpEntity.getBackgroundColor()+tmpEntity.getForegroundColor()+tmpEntity.getsNo()+" "+tmpEntity.getLength()+tmpEntity.getDate()+tmpEntity.getTitle());
+            System.out.println(tmpEntity.getBackgroundColor()+tmpEntity.getForegroundColor()+tmpEntity.getsNo()+" "+tmpEntity.getDate()+tmpEntity.getTitle());
         }
     }
 
     public static void reloadURL() throws ParserConfigurationException, SAXException, IOException, SQLException, ClassNotFoundException {
 
-      for(MenuEntity entity: menuItems){
+      for(FirstScreenEntity entity: menuItems){
           if(entity.isSelected()){
               Downloader tmpDownloader = new Downloader();
               tmpDownloader.Reload(entity);
           }
       }
-
     }
 
     public static void reloadAllURL() throws ParserConfigurationException, SAXException, IOException, SQLException, ClassNotFoundException {
-        for(MenuEntity entity: menuItems){
+        for(FirstScreenEntity entity: menuItems){
              Downloader tmpDownloader = new Downloader();
              tmpDownloader.Reload(entity);
         }
@@ -81,26 +82,23 @@ public final class MainMenu {
 
         clearScreen();
         List<Map<String,String>> results = new ArrayList<>();
-        for(MenuEntity entity: menuItems){
+        for(FirstScreenEntity entity: menuItems){
 
             if(entity.isSelected()){
                 DBClient client = new DBClient();
                 results = client.getResults(entity.getLink());
             }
 
-            SecondScreen.show_UI(results);
+            SecondScreen.createMenu(results);
         }
     }
 
-    private static void clearScreen() {
-        System.out.print("\033\143");
-    }
 
     public static int getMenuValue() {
         return menuValue;
     }
 
     public static void setMenuValue(int menuValue) {
-        MainMenu.menuValue = menuValue;
+        FirstScreen.menuValue = menuValue;
     }
 }

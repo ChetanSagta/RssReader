@@ -45,7 +45,7 @@ public class DBClient {
     //return based on Object
     public List<Map<String,String>> getResults(String parent) throws SQLException {
         List<Map<String, String>> results = new ArrayList<>();
-        String query = "select * from query where parent = ? ";
+        String query = "select * from information where parent = ? ";
 
         PreparedStatement pstmt = con.prepareStatement(query);
         pstmt.setString(1,parent);
